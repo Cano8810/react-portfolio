@@ -1,0 +1,107 @@
+.footer {
+  background-color: var(--color-surface);
+  padding: var(--spacing-xl) 0;
+  margin-top: auto;
+  border-top: 1px solid var(--color-border);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.social {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+.social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xl);
+  transition: all var(--transition-base);
+}
+
+.social a:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.creditLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background-color: var(--color-surface-elevated);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.creditLink:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.creditLink:hover .creditText {
+  color: #ffffff;
+}
+
+.creditText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.copyright {
+  font-weight: 400;
+}
+
+.codeBy {
+  font-weight: 300;
+}
+
+.name {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.firstName {
+  font-weight: 600;
+}
+
+.lastName {
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .copyright {
+    text-align: right;
+  }
+}
