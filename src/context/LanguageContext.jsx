@@ -26,6 +26,10 @@ const translations = {
     yearsExperience: 'Years Experience',
     projectsCompleted: 'Projects Completed',
     technologiesMastered: 'Technologies',
+    aboutWork: 'Work',
+    aboutOnline: 'Online',
+    aboutWhere: 'Where',
+    aboutExtras: 'Extras',
     // Projects
     projectsTitle: 'My Projects',
     projectsSubtitle: 'A selection of my work',
@@ -109,6 +113,10 @@ const translations = {
     yearsExperience: 'Jahre Erfahrung',
     projectsCompleted: 'Projekte abgeschlossen',
     technologiesMastered: 'Technologien',
+    aboutWork: 'Arbeit',
+    aboutOnline: 'Online',
+    aboutWhere: 'Standort',
+    aboutExtras: 'Extras',
     // Projects
     projectsTitle: 'Meine Projekte',
     projectsSubtitle: 'Eine Auswahl meiner Arbeiten',
@@ -192,6 +200,10 @@ const translations = {
     yearsExperience: 'Yıl Deneyim',
     projectsCompleted: 'Tamamlanan Proje',
     technologiesMastered: 'Teknoloji',
+    aboutWork: 'Kariyer',
+    aboutOnline: 'Online',
+    aboutWhere: 'Konum',
+    aboutExtras: 'Ekstra',
     // Projects
     projectsTitle: 'Projelerim',
     projectsSubtitle: 'Çalışmalarımdan bir seçki',

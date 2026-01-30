@@ -2,7 +2,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import Sidebar from './components/layout/Sidebar';
 import Hero from './components/sections/Hero';
-import About from './components/sections/About';
+import AboutSection from './components/sections/AboutSection';
 import Projects from './components/sections/Projects';
 import Studies from './components/sections/Studies';
 import InterfaceStudios from './components/sections/InterfaceStudios';
@@ -36,7 +36,7 @@ function App() {
         <Sidebar />
         <main>
           <Hero />
-          <About />
+          <AboutSection />
           <Projects />
           <Studies />
           <InterfaceStudios />
