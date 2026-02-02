@@ -10,14 +10,14 @@ const aboutData = {
   work: {
     header: { left: 'Chronik', center: 'Designer', right: 'Gegenwärtig' },
     items: [
-      { name: 'Interface Studios', role: 'Web Designer', period: '2024–Present' },
+      { name: 'Interface Stdios', role: 'Web Designer', period: '2025–Present' },
       { name: 'HAW Hamburg', role: 'Maschinenbau Student', period: '2021–Present' },
       { name: 'Freelance', role: 'Frontend Entwickler', period: '2020–21' },
     ],
   },
 
   online: [
-    { name: 'can.yildiz@email.de', action: 'E-Mail', url: 'mailto:can.yildiz@email.de' },
+    { name: 'canyildiz2002@gmail.com', action: 'E-Mail', url: 'mailto:canyildiz2002@gmail.com' },
     { name: 'Twitter', action: 'Folgen', url: 'https://twitter.com/canyildiz' },
     { name: 'Instagram', action: 'Folgen', url: 'https://instagram.com/canyildiz' },
     { name: 'LinkedIn', action: 'Folgen', url: 'https://linkedin.com/in/canyildiz' },
@@ -29,7 +29,7 @@ const aboutData = {
   },
 
   extras: [
-    { name: 'Lebenslauf', action: 'Link', url: '/documents/resume.pdf' },
+    { name: 'Resume', action: 'Download', url: '/documents/Resume Can Yildiz.pdf' },
     { name: 'Portfolio-Broschüre', action: 'Link', url: '/documents/portfolio.pdf' },
   ],
 };
@@ -72,6 +72,7 @@ const TableRow = ({ left, center, right, rightAction, href, isHeader }) => {
 const AboutSection = () => {
   const { t, language } = useLanguage();
   const [videoError, setVideoError] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   // Labels based on language
   const labels = {
@@ -83,7 +84,29 @@ const AboutSection = () => {
 
   return (
     <section id="about" className={styles.section}>
-      <div className={styles.container}>
+      {/* Sticky Name - outside grid for proper blend-mode overlay */}
+      <h2 className={styles.stickyName}>C. Yildiz</h2>
+
+      <div className={styles.mainGrid}>
+        {/* LEFT: Photo Column */}
+        <div className={styles.leftColumn}>
+          {/* Photo */}
+          <div className={styles.photoFrame}>
+            {!imageError ? (
+              <img
+                src="/images/about-portrait.jpg"
+                alt="Portrait"
+                className={styles.photo}
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className={styles.photoPlaceholder} />
+            )}
+          </div>
+        </div>
+
+        {/* RIGHT: Table Content (unchanged) */}
+        <div className={styles.tableColumn}>
 
         {/* BLOCK 1: Work */}
         <div className={styles.block}>
@@ -153,22 +176,23 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* BLOCK 4: Extras */}
-        <div className={styles.block}>
-          <div className={styles.label}>{labels.extras}</div>
-          <div className={styles.content}>
-            {aboutData.extras.map((item, i) => (
-              <TableRow
-                key={i}
-                left={item.name}
-                right={item.action}
-                rightAction={true}
-                href={item.url}
-              />
-            ))}
+          {/* BLOCK 4: Extras */}
+          <div className={styles.block}>
+            <div className={styles.label}>{labels.extras}</div>
+            <div className={styles.content}>
+              {aboutData.extras.map((item, i) => (
+                <TableRow
+                  key={i}
+                  left={item.name}
+                  right={item.action}
+                  rightAction={true}
+                  href={item.url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
   );

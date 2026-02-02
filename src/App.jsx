@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import Sidebar from './components/layout/Sidebar';
@@ -6,44 +7,48 @@ import AboutSection from './components/sections/AboutSection';
 import Projects from './components/sections/Projects';
 import Studies from './components/sections/Studies';
 import InterfaceStudios from './components/sections/InterfaceStudios';
-import Resume from './components/sections/Resume';
 import Contact from './components/sections/Contact';
+import PrivateVault from './components/sections/PrivateVault';
 import Footer from './components/layout/Footer';
 import DecryptedText from './components/ui/DecryptedText';
+import WelcomeLoader from './components/ui/WelcomeLoader';
 import './styles/variables.css';
 import './styles/global.css';
 import './styles/animations.css';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <ThemeProvider>
       <LanguageProvider>
+        {isLoading && <WelcomeLoader onComplete={() => setIsLoading(false)} />}
         <div className="app">
-        {/* Credit Link - Top Right */}
-        <a href="#" className="credit-link">
-          <DecryptedText
-            text="© Code by Can Yildiz"
-            speed={50}
-            maxIterations={15}
-            sequential={true}
-            revealDirection="start"
-            className="credit-char"
-            parentClassName="credit-text"
-            animateOn="both"
-          />
-        </a>
+          {/* Credit Link - Top Right */}
+          <a href="#" className="credit-link">
+            <DecryptedText
+              text="© Code by Can Yildiz"
+              speed={50}
+              maxIterations={15}
+              sequential={true}
+              revealDirection="start"
+              className="credit-char"
+              parentClassName="credit-text"
+              animateOn="view"
+            />
+          </a>
 
-        <Sidebar />
-        <main>
-          <Hero />
-          <AboutSection />
-          <Projects />
-          <Studies />
-          <InterfaceStudios />
-          <Resume />
-          <Contact />
-        </main>
-        <Footer />
+          <Sidebar />
+          <main>
+            <Hero />
+            <AboutSection />
+            <Projects />
+            <PrivateVault />
+            <Studies />
+            <InterfaceStudios />
+            <Contact />
+          </main>
+          <Footer />
         </div>
       </LanguageProvider>
     </ThemeProvider>
