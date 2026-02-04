@@ -1,4 +1,5 @@
 import { useLanguage } from '../../context/LanguageContext';
+import InterfaceLoadingScreen from '../ui/InterfaceLoadingScreen';
 import styles from './InterfaceStudios.module.css';
 
 const InterfaceStudios = () => {
@@ -39,49 +40,55 @@ const InterfaceStudios = () => {
   ];
 
   return (
-    <section id="interface-studios" className={styles.interfaceStudios}>
-      <div className={styles.backgroundPattern} />
+    <>
+      {/* Scroll-basierter Loading Screen */}
+      <InterfaceLoadingScreen />
 
-      <div className="container">
-        <div className={styles.header}>
-          <div className={styles.logo}>
-            <span className={styles.logoIcon}>◆</span>
-            <span className={styles.logoText}>Interface Studios</span>
+      {/* Eigentliche Interface Studios Section */}
+      <section id="interface-studios" className={styles.interfaceStudios}>
+        <div className={styles.backgroundPattern} />
+
+        <div className="container">
+          <div className={styles.header}>
+            <div className={styles.logo}>
+              <span className={styles.logoIcon}>◆</span>
+              <span className={styles.logoText}>Interface Studios</span>
+            </div>
+            <h2 className={styles.title}>{t('studioTitle')}</h2>
+            <p className={styles.subtitle}>{t('studioSubtitle')}</p>
           </div>
-          <h2 className={styles.title}>{t('studioTitle')}</h2>
-          <p className={styles.subtitle}>{t('studioSubtitle')}</p>
-        </div>
 
-        {/* Services */}
-        <div className={styles.servicesGrid}>
-          {services.map((service) => (
-            <div key={service.id} className={styles.serviceCard}>
-              <span className={styles.serviceIcon}>{service.icon}</span>
-              <h3 className={styles.serviceTitle}>{t(service.titleKey)}</h3>
-              <p className={styles.serviceDesc}>{t(service.descKey)}</p>
-            </div>
-          ))}
-        </div>
+          {/* Services */}
+          <div className={styles.servicesGrid}>
+            {services.map((service) => (
+              <div key={service.id} className={styles.serviceCard}>
+                <span className={styles.serviceIcon}>{service.icon}</span>
+                <h3 className={styles.serviceTitle}>{t(service.titleKey)}</h3>
+                <p className={styles.serviceDesc}>{t(service.descKey)}</p>
+              </div>
+            ))}
+          </div>
 
-        {/* Stats */}
-        <div className={styles.statsBar}>
-          {stats.map((stat, index) => (
-            <div key={index} className={styles.statItem}>
-              <span className={styles.statValue}>{stat.value}</span>
-              <span className={styles.statLabel}>{t(stat.labelKey)}</span>
-            </div>
-          ))}
-        </div>
+          {/* Stats */}
+          <div className={styles.statsBar}>
+            {stats.map((stat, index) => (
+              <div key={index} className={styles.statItem}>
+                <span className={styles.statValue}>{stat.value}</span>
+                <span className={styles.statLabel}>{t(stat.labelKey)}</span>
+              </div>
+            ))}
+          </div>
 
-        {/* CTA */}
-        <div className={styles.cta}>
-          <p className={styles.ctaText}>{t('studioCta')}</p>
-          <a href="#contact" className={styles.ctaButton}>
-            {t('studioContact')}
-          </a>
+          {/* CTA */}
+          <div className={styles.cta}>
+            <p className={styles.ctaText}>{t('studioCta')}</p>
+            <a href="#contact" className={styles.ctaButton}>
+              {t('studioContact')}
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

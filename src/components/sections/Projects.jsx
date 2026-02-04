@@ -1,67 +1,67 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import CardSwap, { Card } from '../ui/CardSwap';
 import { FiX, FiExternalLink, FiGithub } from 'react-icons/fi';
 import styles from './Projects.module.css';
 
-const workCards = [
-  {
-    id: 1,
-    label: 'Beruf',
-    icon: '◆',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=400&fit=crop',
-    number: '1',
-    title: 'Berufserfahrung',
-    description: 'Professionelle Erfahrung in der Softwareentwicklung und IT-Branche.',
-    fullDescription: 'Meine berufliche Laufbahn umfasst verschiedene Positionen in der Softwareentwicklung. Von der Konzeption bis zur Umsetzung komplexer Projekte bringe ich fundierte Erfahrung mit.',
-    technologies: ['Full-Stack Development', 'Team Lead', 'Agile/Scrum', 'Code Reviews'],
-    link: '#',
-    github: '#'
-  },
-  {
-    id: 2,
-    label: 'Praktika',
-    icon: '○',
-    image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=600&h=400&fit=crop',
-    number: '2',
-    title: 'Praktika & Praxis',
-    description: 'Praktische Erfahrungen und Einblicke in verschiedene Unternehmen.',
-    fullDescription: 'Durch verschiedene Praktika und Praxisphasen habe ich wertvolle Einblicke in unterschiedliche Arbeitsumgebungen und Technologien gewonnen.',
-    technologies: ['Web Development', 'UI/UX', 'Datenbanken', 'API Design'],
-    link: '#',
-    github: '#'
-  },
-  {
-    id: 3,
-    label: 'Creatives',
-    icon: '✦',
-    image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=600&h=400&fit=crop',
-    number: '3',
-    title: 'Kreative Arbeiten',
-    description: 'Design, Animationen und visuelle Projekte die begeistern.',
-    fullDescription: 'Kreativität trifft auf Technologie. Meine kreativen Projekte umfassen UI/UX Design, Motion Graphics und experimentelle Webprojekte die Grenzen verschieben.',
-    technologies: ['Figma', 'After Effects', 'Blender', 'Creative Coding'],
-    link: '#',
-    github: '#'
-  },
-  {
-    id: 4,
-    label: 'Projekte',
-    icon: '≡',
-    image: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=600&h=400&fit=crop',
-    number: '4',
-    title: 'Eigene Projekte',
-    description: 'Persönliche Projekte und Open-Source Beiträge.',
-    fullDescription: 'Neben meiner beruflichen Arbeit entwickle ich eigene Projekte und trage zu Open-Source bei. Diese Projekte ermöglichen es mir, neue Technologien zu erkunden und kreative Ideen umzusetzen.',
-    technologies: ['React', 'Node.js', 'TypeScript', 'Open Source'],
-    link: '#',
-    github: '#'
-  }
-];
-
 const Projects = () => {
   const { t } = useLanguage();
+
+  const workCards = useMemo(() => [
+    {
+      id: 1,
+      label: t('cardWorkLabel'),
+      icon: '◆',
+      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=400&fit=crop',
+      number: '1',
+      title: t('cardWorkTitle'),
+      description: t('cardWorkDesc'),
+      fullDescription: t('cardWorkFullDesc'),
+      technologies: ['Full-Stack Development', 'Team Lead', 'Agile/Scrum', 'Code Reviews'],
+      link: '#',
+      github: '#'
+    },
+    {
+      id: 2,
+      label: t('cardInternLabel'),
+      icon: '○',
+      image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=600&h=400&fit=crop',
+      number: '2',
+      title: t('cardInternTitle'),
+      description: t('cardInternDesc'),
+      fullDescription: t('cardInternFullDesc'),
+      technologies: ['Web Development', 'UI/UX', 'Datenbanken', 'API Design'],
+      link: '#',
+      github: '#'
+    },
+    {
+      id: 3,
+      label: t('cardCreativeLabel'),
+      icon: '✦',
+      image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=600&h=400&fit=crop',
+      number: '3',
+      title: t('cardCreativeTitle'),
+      description: t('cardCreativeDesc'),
+      fullDescription: t('cardCreativeFullDesc'),
+      technologies: ['Figma', 'After Effects', 'Blender', 'Creative Coding'],
+      link: '#',
+      github: '#'
+    },
+    {
+      id: 4,
+      label: t('cardProjectsLabel'),
+      icon: '≡',
+      image: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=600&h=400&fit=crop',
+      number: '4',
+      title: t('cardProjectsTitle'),
+      description: t('cardProjectsDesc'),
+      fullDescription: t('cardProjectsFullDesc'),
+      technologies: ['React', 'Node.js', 'TypeScript', 'Open Source'],
+      link: '#',
+      github: '#'
+    }
+  ], [t]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedCard, setSelectedCard] = useState(null);
 
