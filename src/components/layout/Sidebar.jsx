@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiBriefcase, FiUser, FiBook, FiFileText, FiMail, FiMenu, FiX, FiMoon, FiSun, FiSettings, FiLock } from 'react-icons/fi';
+import { FiBriefcase, FiUser, FiBook, FiFileText, FiMail, FiMenu, FiX, FiMoon, FiSun, FiSettings, FiLock, FiHome } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './Sidebar.module.css';
@@ -27,6 +27,7 @@ const Sidebar = () => {
   const [showSettings, setShowSettings] = useState(false);
 
   const links = [
+    { label: t('home'), href: '#hero', icon: FiHome },
     { label: t('about'), href: '#about', icon: FiUser },
     { label: t('work'), href: '#work', icon: FiBriefcase },
     { label: t('vault'), href: '#vault', icon: FiLock },

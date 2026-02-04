@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const translations = {
   en: {
     // Sidebar
+    home: 'Home',
     work: 'Work',
     about: 'About',
     studies: 'Studies',
@@ -108,6 +109,7 @@ const translations = {
   },
   de: {
     // Sidebar
+    home: 'Start',
     work: 'Arbeit',
     about: 'Über mich',
     studies: 'Studium',
@@ -213,6 +215,7 @@ const translations = {
   },
   tr: {
     // Sidebar
+    home: 'Ana Sayfa',
     work: 'Çalışmalar',
     about: 'Hakkımda',
     studies: 'Eğitim',
