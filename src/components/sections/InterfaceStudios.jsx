@@ -46,8 +46,6 @@ const InterfaceStudios = () => {
 
       {/* Eigentliche Interface Studios Section */}
       <section id="interface-studios" className={styles.interfaceStudios}>
-        <div className={styles.backgroundPattern} />
-
         <div className="container">
           <div className={styles.header}>
             <div className={styles.logo}>
