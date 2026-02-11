@@ -30,7 +30,7 @@ function calculateDurations() {
 
 const durations = calculateDurations();
 
-function WelcomeLoader({ onComplete }) {
+function WelcomeLoader({ onComplete, onFinished }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [isSwiping, setIsSwiping] = useState(false);
@@ -59,9 +59,11 @@ function WelcomeLoader({ onComplete }) {
       } else {
         // Letztes Wort - Swipe up
         setIsSwiping(true);
+        // Content soll jetzt laden während Swipe läuft
+        onComplete?.();
         timeoutId = setTimeout(() => {
           setIsComplete(true);
-          onComplete?.();
+          onFinished?.();
         }, 1150);
       }
     }
@@ -72,7 +74,7 @@ function WelcomeLoader({ onComplete }) {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [onComplete]);
+  }, [onComplete, onFinished]);
 
   if (isComplete) return null;
 

@@ -17,39 +17,57 @@ import './styles/global.css';
 import './styles/animations.css';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
+  const [renderContent, setRenderContent] = useState(false);
+
+  const handleLoaderComplete = () => {
+    // Content startet zu rendern während Swipe Animation läuft
+    setRenderContent(true);
+  };
+
+  const handleLoaderFinished = () => {
+    // Loader komplett weg nach Swipe Animation
+    setShowLoader(false);
+  };
 
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {isLoading && <WelcomeLoader onComplete={() => setIsLoading(false)} />}
-        <div className="app">
-          {/* Credit Link - Top Right */}
-          <a href="#" className="credit-link">
-            <DecryptedText
-              text="© Code by Can Yildiz"
-              speed={50}
-              maxIterations={15}
-              sequential={true}
-              revealDirection="start"
-              className="credit-char"
-              parentClassName="credit-text"
-              animateOn="view"
-            />
-          </a>
+        {showLoader && (
+          <WelcomeLoader
+            onComplete={handleLoaderComplete}
+            onFinished={handleLoaderFinished}
+          />
+        )}
+        {renderContent && (
+          <div className="app">
+            {/* Credit Link - Top Right */}
+            <a href="#" className="credit-link">
+              <DecryptedText
+                text="© Code by Can Yildiz"
+                speed={50}
+                maxIterations={15}
+                sequential={true}
+                revealDirection="start"
+                className="credit-char"
+                parentClassName="credit-text"
+                animateOn="view"
+              />
+            </a>
 
-          <Sidebar />
-          <main>
-            <Hero />
-            <AboutSection />
-            <Projects />
-            <PrivateVault />
-            <Studies />
-            <InterfaceStudios />
-            <Contact />
-          </main>
-          <Footer />
-        </div>
+            <Sidebar />
+            <main>
+              <Hero />
+              <AboutSection />
+              <Projects />
+              <PrivateVault />
+              <Studies />
+              <InterfaceStudios />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        )}
       </LanguageProvider>
     </ThemeProvider>
   );
