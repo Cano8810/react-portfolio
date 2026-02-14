@@ -51,7 +51,7 @@ function App() {
                 revealDirection="start"
                 className="credit-char"
                 parentClassName="credit-text"
-                animateOn="view"
+                animateOn="both"
               />
             </a>
 

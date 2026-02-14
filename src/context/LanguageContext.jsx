@@ -17,7 +17,7 @@ const translations = {
     language: 'Language',
     // Hero
     heroStatement: 'Helping brands to stand out in the digital era',
-    heroDescription: 'The combination of my passion for design, code & interaction positions me in a unique place in the web design world.',
+    heroDescription: 'I build intelligent systems where engineering precision meets thoughtful design — systems that think, move and perform in a connected digital world.',
     basedIn: 'Based in',
     localTime: 'Local time',
     scrollToExplore: 'Scroll to explore',

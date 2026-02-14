@@ -12,6 +12,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    inquiry: 'Job / Contract',
     message: '',
   });
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -34,7 +35,7 @@ const Contact = () => {
         {
           from_name: formData.name,
           from_email: formData.email,
-          message: formData.message,
+          message: `[${formData.inquiry || 'Not specified'}]\n\n${formData.message}`,
         },
         'UCfwjamPYvnWqCcX3'
       );
@@ -43,7 +44,7 @@ const Contact = () => {
         type: 'success',
         message: t('messageSent'),
       });
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', inquiry: 'Job / Contract', message: '' });
     } catch (error) {
       console.error('EmailJS Error:', error);
       setStatus({
@@ -108,6 +109,24 @@ const Contact = () => {
 
           <HoverBorderGradient>
             <form onSubmit={handleSubmit} className={styles.form}>
+              <div className={styles.formGroup}>
+                <div className={styles.inquiryOptions}>
+                  {['Job / Contract', 'Freelance Project', 'Other'].map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      className={`${styles.inquiryOption} ${formData.inquiry === option ? styles.inquiryActive : ''}`}
+                      onClick={() => setFormData({ ...formData, inquiry: formData.inquiry === option ? '' : option })}
+                    >
+                      <span className={`${styles.checkbox} ${formData.inquiry === option ? styles.checked : ''}`}>
+                        {formData.inquiry === option && '✓'}
+                      </span>
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div className={styles.formGroup}>
                 <label htmlFor="name">{t('nameLabel')}</label>
                 <input

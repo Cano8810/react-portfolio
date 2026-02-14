@@ -2,7 +2,7 @@
 .projects {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 120vh;
   background-color: #000;
   overflow-x: clip;
   padding: 0;

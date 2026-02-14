@@ -4,17 +4,37 @@
 
 .section {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   background-color: var(--color-bg);
-  padding: 80px 40px;
+  padding: 0;
+  overflow: hidden;
 }
 
 .container {
   width: 100%;
-  max-width: 800px;
-  margin-left: 100px;
+  height: 100vh;
+  position: relative;
+}
+
+/* ============================================
+   LOCK LAYOUT
+   ============================================ */
+
+.lockLayout {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.lanyardWrapper {
+  position: absolute;
+  top: -15vh;
+  right: -60%;
+  width: 160%;
+  height: 100%;
+  z-index: 10;
+  will-change: contents;
+  image-rendering: high-quality;
 }
 
 /* ============================================
@@ -22,10 +42,21 @@
    ============================================ */
 
 .lockScreen {
+  position: relative;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  pointer-events: none;
+}
+
+.lockScreen > * {
+  pointer-events: auto;
 }
 
 .lockIcon {
@@ -71,11 +102,12 @@
 
 .inputWrapper {
   width: 100%;
+  position: relative;
 }
 
 .input {
   width: 100%;
-  padding: 16px 20px;
+  padding: 16px 50px 16px 50px;
   font-size: 18px;
   font-family: inherit;
   text-align: center;
@@ -118,6 +150,56 @@
   20%, 40%, 60%, 80% { transform: translateX(8px); }
 }
 
+/* ============================================
+   EYE TOGGLE
+   ============================================ */
+
+.eyeButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 8px;
+  z-index: 2;
+}
+
+.eyeButton:hover {
+  opacity: 1;
+}
+
+.eyeSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lidUpper {
+  d: path("M0 -5 L100 -5 L100 50 L90 50 Q50 30 10 50 L0 50 Z");
+  transition: d 0.1s ease-in-out;
+}
+
+.lidClosed {
+  d: path("M0 -5 L100 -5 L100 50 L90 50 Q50 70 10 50 L0 50 Z");
+}
+
+.lidUpperStroke {
+  d: path("M10 50 Q50 30 90 50");
+  transition: d 0.1s ease-in-out;
+}
+
+.lidStrokeClosed {
+  d: path("M10 50 Q50 70 90 50");
+}
+
 .error {
   font-size: 14px;
   color: #ff4444;
@@ -155,6 +237,10 @@
 
 .vaultContent {
   width: 100%;
+  max-width: calc(100% - 60px);
+  margin-left: 60px;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 .header {
@@ -250,11 +336,28 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 60px 24px;
+    padding: 0;
   }
 
   .container {
-    margin-left: 0;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .lockLayout {
+    flex-direction: column;
+  }
+
+  .lockScreen {
+    width: 100%;
+    padding: 60px 24px;
+    min-height: 50vh;
+  }
+
+  .lanyardWrapper {
+    position: relative;
+    width: 100%;
+    height: 50vh;
   }
 
   .lockIcon {

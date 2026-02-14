@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiBriefcase, FiUser, FiBook, FiFileText, FiMail, FiMenu, FiX, FiMoon, FiSun, FiSettings, FiLock, FiHome } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
+import MetallicPaint from '../ui/MetallicPaint';
 import styles from './Sidebar.module.css';
 
 // Custom Interface Studios Icon
@@ -85,14 +86,28 @@ const Sidebar = () => {
         <div className={styles.sidebarContent}>
           {/* Logo / Brand */}
           <div className={styles.brand}>
-            <div className={styles.logo}>C</div>
+            <div className={styles.logo} style={isOpen ? { width: 260, height: 160 } : undefined}>
+              <MetallicPaint
+                imageSrc="/Unterschrift.png"
+                lightColor="#ffffff"
+                darkColor="#000000"
+                tintColor="#feb3ff"
+                speed={0.3}
+                scale={4}
+                brightness={2}
+                contrast={0.5}
+                liquid={0.75}
+                blur={0.001}
+                patternSharpness={5}
+              />
+            </div>
             <AnimatePresence>
               {isOpen && (
                 <motion.span
                   className={styles.brandText}
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: 'auto' }}
-                  exit={{ opacity: 0, width: 0 }}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
                 >
                   Portfolio
