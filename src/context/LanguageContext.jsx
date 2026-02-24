@@ -63,6 +63,7 @@ const translations = {
     // Footer
     footerRights: 'All rights reserved',
     // Studies Section
+    studiesIntroTitle: 'Studium',
     studiesTitle: 'Education & Studies',
     studiesSubtitle: 'My academic background and certifications',
     education: 'Education',
@@ -170,6 +171,7 @@ const translations = {
     // Footer
     footerRights: 'Alle Rechte vorbehalten',
     // Studies Section
+    studiesIntroTitle: 'Studium',
     studiesTitle: 'Bildung & Studium',
     studiesSubtitle: 'Mein akademischer Hintergrund und Zertifizierungen',
     education: 'Ausbildung',
@@ -277,6 +279,7 @@ const translations = {
     // Footer
     footerRights: 'Tüm hakları saklıdır',
     // Studies Section
+    studiesIntroTitle: 'Eğitim',
     studiesTitle: 'Eğitim & Çalışmalar',
     studiesSubtitle: 'Akademik geçmişim ve sertifikalarım',
     education: 'Eğitim',

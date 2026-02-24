@@ -238,79 +238,82 @@ const PrivateVault = () => {
                     className={`${styles.input} ${error ? styles.inputError : ''}`}
                     autoComplete="off"
                   />
-                  <button
-                    type="button"
-                    className={styles.eyeButton}
-                    onClick={togglePassword}
-                    aria-label="Toggle password visibility"
-                    aria-pressed={showPassword}
-                  >
-                    <svg
-                      ref={eyeRef}
-                      className={styles.eyeSvg}
-                      viewBox="0 0 100 100"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <defs>
-                        <clipPath id="vault-eye-clip">
-                          <path d="M50,25 C25,25 10,50 10,50 C10,50 25,75 50,75 C75,75 90,50 90,50 C90,50 75,25 50,25 Z" />
-                        </clipPath>
-                      </defs>
-                      {/* Pupil + glint (clipped to eye shape) */}
-                      <g clipPath="url(#vault-eye-clip)">
-                        <circle
-                          cx={50 + eyePos.x}
-                          cy={50 + eyePos.y}
-                          r="12"
-                          fill="currentColor"
+                  <div className={styles.eyeAnchor}>
+                    <button
+                      type="button"
+                      className={styles.eyeClick}
+                      onClick={togglePassword}
+                      aria-label="Toggle password visibility"
+                      aria-pressed={showPassword}
+                    />
+                    <div className={styles.eyeVisual}>
+                      <svg
+                        ref={eyeRef}
+                        className={styles.eyeSvg}
+                        viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <clipPath id="vault-eye-clip">
+                            <path d="M50,25 C25,25 10,50 10,50 C10,50 25,75 50,75 C75,75 90,50 90,50 C90,50 75,25 50,25 Z" />
+                          </clipPath>
+                        </defs>
+                        {/* Pupil + glint (clipped to eye shape) */}
+                        <g clipPath="url(#vault-eye-clip)">
+                          <circle
+                            cx={50 + eyePos.x}
+                            cy={50 + eyePos.y}
+                            r="12"
+                            fill="currentColor"
+                          />
+                          <circle
+                            cx={52 + eyePos.x}
+                            cy={48 + eyePos.y}
+                            r="4"
+                            fill="var(--color-background)"
+                          />
+                        </g>
+                        {/* Upper lid fill (covers pupil when closed) */}
+                        <path
+                          className={`${styles.lidUpper} ${lidIsClosed ? styles.lidClosed : ''}`}
+                          d="M0 -5 L100 -5 L100 50 L90 50 Q50 30 10 50 L0 50 Z"
+                          fill="var(--color-background)"
+                          stroke="none"
                         />
-                        <circle
-                          cx={52 + eyePos.x}
-                          cy={48 + eyePos.y}
-                          r="4"
-                          fill="var(--color-bg)"
+                        {/* Lower lid fill */}
+                        <path
+                          d="M0 105 L100 105 L100 50 L90 50 Q50 70 10 50 L0 50 Z"
+                          fill="var(--color-background)"
+                          stroke="none"
                         />
-                      </g>
-                      {/* Upper lid fill (covers pupil when closed) */}
-                      <path
-                        className={`${styles.lidUpper} ${lidIsClosed ? styles.lidClosed : ''}`}
-                        d="M0 -5 L100 -5 L100 50 L90 50 Q50 30 10 50 L0 50 Z"
-                        fill="var(--color-bg)"
-                        stroke="none"
-                      />
-                      {/* Lower lid fill */}
-                      <path
-                        d="M0 105 L100 105 L100 50 L90 50 Q50 70 10 50 L0 50 Z"
-                        fill="var(--color-bg)"
-                        stroke="none"
-                      />
-                      {/* Eye outline */}
-                      <path
-                        d="M50,25 C25,25 10,50 10,50 C10,50 25,75 50,75 C75,75 90,50 90,50 C90,50 75,25 50,25 Z"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinejoin="round"
-                      />
-                      {/* Upper lid stroke */}
-                      <path
-                        className={`${styles.lidUpperStroke} ${lidIsClosed ? styles.lidStrokeClosed : ''}`}
-                        d="M10 50 Q50 30 90 50"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                      />
-                      {/* Lower lid stroke */}
-                      <path
-                        d="M10,50 Q50,70 90,50"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </button>
+                        {/* Eye outline */}
+                        <path
+                          d="M50,25 C25,25 10,50 10,50 C10,50 25,75 50,75 C75,75 90,50 90,50 C90,50 75,25 50,25 Z"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinejoin="round"
+                        />
+                        {/* Upper lid stroke */}
+                        <path
+                          className={`${styles.lidUpperStroke} ${lidIsClosed ? styles.lidStrokeClosed : ''}`}
+                          d="M10 50 Q50 30 90 50"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        />
+                        {/* Lower lid stroke */}
+                        <path
+                          d="M10,50 Q50,70 90,50"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
                 {error && <p className={styles.error}>{labels.wrongCode}</p>}
