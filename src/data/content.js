@@ -18,13 +18,13 @@ export const content = {
     ],
   },
   contact: {
-    email: 'your.email@example.com',
-    phone: '+49 123 456 7890',
-    location: 'Deutschland',
+    email: 'canyildiz2002@gmail.com',
+    phone: '+49 178 5787729',
+    location: 'Hamburg, Deutschland',
   },
   social: {
     github: 'https://github.com/yourusername',
     linkedin: 'https://linkedin.com/in/yourusername',
-    email: 'your.email@example.com',
+    email: 'canyildiz2002@gmail.com',
   },
 };

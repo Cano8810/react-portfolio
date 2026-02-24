@@ -89,7 +89,14 @@ const Hero = () => {
         </div>
 
         <h1 className={styles.title}>
-          {t('heroStatement')}
+          <span className={styles.titleLine}>DESIGN</span>
+          <span className={styles.titleX}>
+            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+              <rect x="10" y="0" width="4" height="24" />
+              <rect x="0" y="10" width="24" height="4" />
+            </svg>
+          </span>
+          <span className={styles.titleLine}>ENGINEERING</span>
         </h1>
 
         <div className={styles.subtitle}>
@@ -104,6 +111,10 @@ const Hero = () => {
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>{t('localTime')}</span>
             <span className={styles.metaValue} id="current-time">--:-- CET</span>
+          </div>
+          <div className={styles.availabilityBadge}>
+            <span className={styles.statusDot} />
+            <span>Available for work</span>
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import { useLanguage } from '../../context/LanguageContext';
+import StudiesIntro from './StudiesIntro';
 import styles from './Studies.module.css';
 
 const Studies = () => {
@@ -54,6 +55,7 @@ const Studies = () => {
 
   return (
     <section id="studies" className={styles.studies}>
+      <StudiesIntro />
       <div className="container">
         <h2 className={styles.sectionTitle}>{t('studiesTitle')}</h2>
         <p className={styles.sectionDescription}>{t('studiesSubtitle')}</p>

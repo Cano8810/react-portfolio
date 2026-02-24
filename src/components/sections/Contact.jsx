@@ -3,6 +3,8 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import { content } from '../../data/content';
 import { useLanguage } from '../../context/LanguageContext';
+import { HoverBorderGradient } from '../ui/HoverBorderGradient';
+import BlurText from '../ui/BlurText';
 import styles from './Contact.module.css';
 
 const Contact = () => {
@@ -10,6 +12,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    inquiry: 'Job / Contract',
     message: '',
   });
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -27,21 +30,21 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        'service_7v8bgbj',
+        'template_3i4h1f5',
         {
           from_name: formData.name,
           from_email: formData.email,
-          message: formData.message,
+          message: `[${formData.inquiry || 'Not specified'}]\n\n${formData.message}`,
         },
-        'YOUR_PUBLIC_KEY'
+        'UCfwjamPYvnWqCcX3'
       );
 
       setStatus({
         type: 'success',
         message: t('messageSent'),
       });
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', inquiry: 'Job / Contract', message: '' });
     } catch (error) {
       console.error('EmailJS Error:', error);
       setStatus({
@@ -54,90 +57,126 @@ const Contact = () => {
   return (
     <section id="contact" className={styles.contact}>
       <div className="container">
-        <h2 className={styles.sectionTitle}>{t('contactTitle')}</h2>
+        <div className={styles.titleWrapper}>
+          <BlurText
+            text={t('contactTitle')}
+            className={styles.sectionTitle}
+            delay={0.05}
+            animateBy="words"
+            direction="top"
+            scrollStart="top 85%"
+            scrollEnd="top 50%"
+          />
+        </div>
         <p className={styles.sectionDescription}>
           {t('contactSubtitle')}
         </p>
 
         <div className={styles.content}>
           <div className={styles.info}>
-            <div className={styles.infoItem}>
-              <FaEnvelope className={styles.infoIcon} />
-              <div>
-                <h3>{t('emailLabel')}</h3>
-                <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
+            <HoverBorderGradient>
+              <div className={styles.infoItem}>
+                <FaEnvelope className={styles.infoIcon} />
+                <div>
+                  <h3>{t('emailLabel')}</h3>
+                  <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
+                </div>
               </div>
-            </div>
+            </HoverBorderGradient>
 
-            <div className={styles.infoItem}>
-              <FaPhone className={styles.infoIcon} />
-              <div>
-                <h3>{t('basedIn')}</h3>
-                <a href={`tel:${content.contact.phone.replace(/\s/g, '')}`}>
-                  {content.contact.phone}
-                </a>
+            <HoverBorderGradient>
+              <div className={styles.infoItem}>
+                <FaPhone className={styles.infoIcon} />
+                <div>
+                  <h3>{t('phoneLabel')}</h3>
+                  <a href={`tel:${content.contact.phone.replace(/\s/g, '')}`}>
+                    {content.contact.phone}
+                  </a>
+                </div>
               </div>
-            </div>
+            </HoverBorderGradient>
 
-            <div className={styles.infoItem}>
-              <FaMapMarkerAlt className={styles.infoIcon} />
-              <div>
-                <h3>{t('basedIn')}</h3>
-                <p>{content.contact.location}</p>
+            <HoverBorderGradient>
+              <div className={styles.infoItem}>
+                <FaMapMarkerAlt className={styles.infoIcon} />
+                <div>
+                  <h3>{t('basedIn')}</h3>
+                  <p>{content.contact.location}</p>
+                </div>
               </div>
-            </div>
+            </HoverBorderGradient>
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.formGroup}>
-              <label htmlFor="name">{t('nameLabel')}</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder={t('namePlaceholder')}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="email">{t('emailLabel')}</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder={t('emailPlaceholder')}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="message">{t('messageLabel')}</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="5"
-                placeholder={t('messagePlaceholder')}
-              />
-            </div>
-
-            {status.message && (
-              <div className={`${styles.status} ${styles[status.type]}`}>
-                {status.message}
+          <HoverBorderGradient>
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <div className={styles.formGroup}>
+                <div className={styles.inquiryOptions}>
+                  {['Job / Contract', 'Freelance Project', 'Other'].map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      className={`${styles.inquiryOption} ${formData.inquiry === option ? styles.inquiryActive : ''}`}
+                      onClick={() => setFormData({ ...formData, inquiry: formData.inquiry === option ? '' : option })}
+                    >
+                      <span className={`${styles.checkbox} ${formData.inquiry === option ? styles.checked : ''}`}>
+                        {formData.inquiry === option && '✓'}
+                      </span>
+                      {option}
+                    </button>
+                  ))}
+                </div>
               </div>
-            )}
+
+              <div className={styles.formGroup}>
+                <label htmlFor="name">{t('nameLabel')}</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder={t('namePlaceholder')}
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="email">{t('emailLabel')}</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder={t('emailPlaceholder')}
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="message">{t('messageLabel')}</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows="5"
+                  placeholder={t('messagePlaceholder')}
+                />
+              </div>
+
+              {status.message && (
+                <div className={`${styles.status} ${styles[status.type]}`}>
+                  {status.message}
+                </div>
+              )}
 
             <button type="submit" className={styles.submitButton} disabled={status.type === 'loading'}>
               {status.type === 'loading' ? t('sending') : t('sendMessage')}
             </button>
-          </form>
+            </form>
+          </HoverBorderGradient>
         </div>
       </div>
     </section>

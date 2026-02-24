@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiBriefcase, FiUser, FiBook, FiFileText, FiMail, FiMenu, FiX, FiMoon, FiSun, FiSettings } from 'react-icons/fi';
+import { FiBriefcase, FiUser, FiBook, FiFileText, FiMail, FiMenu, FiX, FiMoon, FiSun, FiSettings, FiLock, FiHome } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
+import MetallicPaint from '../ui/MetallicPaint';
 import styles from './Sidebar.module.css';
 
 // Custom Interface Studios Icon
@@ -27,11 +28,12 @@ const Sidebar = () => {
   const [showSettings, setShowSettings] = useState(false);
 
   const links = [
+    { label: t('home'), href: '#hero', icon: FiHome },
     { label: t('about'), href: '#about', icon: FiUser },
-    { label: t('work'), href: '#projects', icon: FiBriefcase },
+    { label: t('work'), href: '#work', icon: FiBriefcase },
+    { label: t('vault'), href: '#vault', icon: FiLock },
     { label: t('studies'), href: '#studies', icon: FiBook },
     { label: t('interfaceStudios'), href: '#interface-studios', icon: InterfaceStudiosIcon },
-    { label: t('resume'), href: '#resume', icon: FiFileText },
     { label: t('contact'), href: '#contact', icon: FiMail },
   ];
 
@@ -84,14 +86,28 @@ const Sidebar = () => {
         <div className={styles.sidebarContent}>
           {/* Logo / Brand */}
           <div className={styles.brand}>
-            <div className={styles.logo}>C</div>
+            <div className={styles.logo} style={isOpen ? { width: 260, height: 160 } : undefined}>
+              <MetallicPaint
+                imageSrc="/Unterschrift.png"
+                lightColor="#ffffff"
+                darkColor="#000000"
+                tintColor="#feb3ff"
+                speed={0.3}
+                scale={4}
+                brightness={2}
+                contrast={0.5}
+                liquid={0.75}
+                blur={0.001}
+                patternSharpness={5}
+              />
+            </div>
             <AnimatePresence>
               {isOpen && (
                 <motion.span
                   className={styles.brandText}
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: 'auto' }}
-                  exit={{ opacity: 0, width: 0 }}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
                 >
                   Portfolio

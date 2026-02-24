@@ -1,179 +1,182 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { projects } from '../../data/projects';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
+import CardSwap, { Card } from '../ui/CardSwap';
+import { FiX, FiExternalLink, FiGithub } from 'react-icons/fi';
 import styles from './Projects.module.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const { t } = useLanguage();
-  const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const featuresRef = useRef(null);
-  const imageMotionRef = useRef(null);
-  const imageMotionSectionRef = useRef(null);
 
-  // Duplicate projects for infinite loop effect
-  const carouselItems = [...projects, ...projects];
-  const totalItems = carouselItems.length;
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Image motion scroll animation - exact CodePen style
-      if (imageMotionRef.current) {
-        gsap.set(imageMotionRef.current, { transform: 'rotateX(90deg)' });
-
-        gsap.to(imageMotionRef.current, {
-          transform: 'rotateX(0deg)',
-          scrollTrigger: {
-            trigger: imageMotionSectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      }
-
-      // Title animation
-      gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-
-      // Subtitle animation
-      gsap.fromTo(subtitleRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay: 0.3,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-
-      // Features animation
-      if (featuresRef.current) {
-        const features = featuresRef.current.querySelectorAll(`.${styles.feature}`);
-        gsap.fromTo(features,
-          { opacity: 0, y: 50, scale: 0.9 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            stagger: 0.2,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: featuresRef.current,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleProjectClick = (project) => {
-    if (project.live) {
-      window.open(project.live, '_blank');
-    } else if (project.github) {
-      window.open(project.github, '_blank');
+  const workCards = useMemo(() => [
+    {
+      id: 1,
+      label: t('cardWorkLabel'),
+      icon: '◆',
+      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=400&fit=crop',
+      number: '1',
+      title: t('cardWorkTitle'),
+      description: t('cardWorkDesc'),
+      fullDescription: t('cardWorkFullDesc'),
+      technologies: ['Full-Stack Development', 'Team Lead', 'Agile/Scrum', 'Code Reviews'],
+      link: '#',
+      github: '#'
+    },
+    {
+      id: 2,
+      label: t('cardInternLabel'),
+      icon: '○',
+      image: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=600&h=400&fit=crop',
+      number: '2',
+      title: t('cardInternTitle'),
+      description: t('cardInternDesc'),
+      fullDescription: t('cardInternFullDesc'),
+      technologies: ['Web Development', 'UI/UX', 'Datenbanken', 'API Design'],
+      link: '#',
+      github: '#'
+    },
+    {
+      id: 3,
+      label: t('cardCreativeLabel'),
+      icon: '✦',
+      image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=600&h=400&fit=crop',
+      number: '3',
+      title: t('cardCreativeTitle'),
+      description: t('cardCreativeDesc'),
+      fullDescription: t('cardCreativeFullDesc'),
+      technologies: ['Figma', 'After Effects', 'Blender', 'Creative Coding'],
+      link: '#',
+      github: '#'
+    },
+    {
+      id: 4,
+      label: t('cardProjectsLabel'),
+      icon: '≡',
+      image: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=600&h=400&fit=crop',
+      number: '4',
+      title: t('cardProjectsTitle'),
+      description: t('cardProjectsDesc'),
+      fullDescription: t('cardProjectsFullDesc'),
+      technologies: ['React', 'Node.js', 'TypeScript', 'Open Source'],
+      link: '#',
+      github: '#'
     }
+  ], [t]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const currentCard = workCards[activeIndex];
+
+  const handleCardClick = (index) => {
+    setSelectedCard(workCards[index]);
+  };
+
+  const closeModal = () => {
+    setSelectedCard(null);
   };
 
   return (
-    <section id="projects" className={styles.projects} ref={sectionRef}>
-      {/* Carousel Section */}
-      <div className={styles.loopImages}>
-        <div
-          className={styles.carouselTrack}
-          style={{ '--time': '60s', '--total': totalItems }}
-        >
-          {carouselItems.map((project, index) => (
-            <div
-              key={`${project.id}-${index}`}
-              className={styles.carouselItem}
-              style={{ '--i': index + 1 }}
-              onClick={() => handleProjectClick(project)}
-              title={project.title}
+    <section id="work" className={styles.projects}>
+      <div className={styles.workContainer}>
+        <div className={styles.workContent}>
+          <h2 className={styles.workTitle} key={currentCard.title}>
+            {currentCard.title}
+          </h2>
+          <p className={styles.workSubtitle} key={currentCard.description}>
+            {currentCard.description}
+          </p>
+        </div>
+
+        <div className={styles.cardSwapWrapper}>
+          <CardSwap
+            cardDistance={70}
+            verticalDistance={80}
+            delay={3500}
+            pauseOnHover
+            width={550}
+            height={400}
+            onCardChange={(index) => setActiveIndex(index)}
+            onCardClick={handleCardClick}
+          >
+            {workCards.map((card) => (
+              <Card key={card.id}>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardLabel}>
+                    <span className={styles.cardIcon}>{card.icon}</span>
+                    <span>{card.label}</span>
+                  </div>
+                  <div
+                    className={styles.cardImage}
+                    style={{ backgroundImage: `url(${card.image})` }}
+                  >
+                    <span className={styles.cardNumber}>{card.number}</span>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </CardSwap>
+        </div>
+      </div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {selectedCard && (
+          <motion.div
+            className={styles.modalOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              className={styles.modal}
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
             >
-              <img src={project.image} alt={project.title} />
-              <div className={styles.carouselOverlay}>
-                <span className={styles.carouselTitle}>{project.title}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <span className={styles.scrollDown}>
-          {t('scrollDown')} <span className={styles.arrow}>↓</span>
-        </span>
-      </div>
+              <button className={styles.closeButton} onClick={closeModal}>
+                <FiX size={24} />
+              </button>
 
-      {/* Image Motion Section */}
-      <div className={styles.imageMotionSection} ref={imageMotionSectionRef}>
-        <div className={styles.imageMotion} ref={imageMotionRef}>
-          <picture>
-            <img src="https://i.postimg.cc/1ztkf4hX/moveimage.png" alt="transition" />
-          </picture>
-        </div>
-      </div>
+              <div className={styles.modalContent}>
+                <div
+                  className={styles.modalImage}
+                  style={{ backgroundImage: `url(${selectedCard.image})` }}
+                >
+                  <span className={styles.modalNumber}>{selectedCard.number}</span>
+                </div>
 
-      {/* Content Section */}
-      <div className={styles.contentSection}>
-        <div className={styles.container}>
-          <h2 className={styles.title} ref={titleRef}>{t('projectsTitle')}</h2>
-          <p className={styles.subtitle} ref={subtitleRef}>{t('projectsSubtitle')}</p>
+                <div className={styles.modalInfo}>
+                  <div className={styles.modalLabel}>
+                    <span className={styles.modalIcon}>{selectedCard.icon}</span>
+                    <span>{selectedCard.label}</span>
+                  </div>
 
-          <div className={styles.textContent}>
-            <p className={styles.text}>
-              {t('projectsText1')}
-            </p>
-            <p className={styles.text}>
-              {t('projectsText2')}
-            </p>
-          </div>
+                  <h2 className={styles.modalTitle}>{selectedCard.title}</h2>
+                  <p className={styles.modalDescription}>{selectedCard.fullDescription}</p>
 
-          <div className={styles.features} ref={featuresRef}>
-            {projects.slice(0, 3).map((project) => (
-              <div
-                key={project.id}
-                className={styles.feature}
-                onClick={() => handleProjectClick(project)}
-              >
-                <h3>{project.title}</h3>
-                <p>{project.description.slice(0, 100)}...</p>
-                <div className={styles.techTags}>
-                  {project.technologies.slice(0, 3).map((tech) => (
-                    <span key={tech} className={styles.techTag}>{tech}</span>
-                  ))}
+                  <div className={styles.modalTech}>
+                    {selectedCard.technologies.map((tech) => (
+                      <span key={tech} className={styles.techBadge}>{tech}</span>
+                    ))}
+                  </div>
+
+                  <div className={styles.modalActions}>
+                    <a href={selectedCard.link} className={styles.modalButton} target="_blank" rel="noopener noreferrer">
+                      <FiExternalLink /> View Project
+                    </a>
+                    <a href={selectedCard.github} className={styles.modalButtonSecondary} target="_blank" rel="noopener noreferrer">
+                      <FiGithub /> Source Code
+                    </a>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
